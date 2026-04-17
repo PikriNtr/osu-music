@@ -1,6 +1,6 @@
 // elect.js
 console.log('[main] elect.js loaded');
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, nativeImage } = require('electron'); // nanti tambahin nativeImage buat Windows taskbar thumbnail preview w/toolbar-buttons
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
@@ -47,6 +47,7 @@ function createWindow() {
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
+
   mainWindow.on('closed', () => (mainWindow = null));
 }
 
