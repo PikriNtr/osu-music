@@ -10,9 +10,8 @@ const { parseOsuMetadata } = require('./osuParser');
 
 
 const fileServer = express();
-const EXPRESS_PORT = 3001;
+const EXPRESS_PORT = 3002;
 let songsRoot = null;
-
 
 fileServer.use(cors());
 
@@ -21,7 +20,6 @@ fileServer.use(express.static(buildPath));
 fileServer.get('/', (req, res) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
-
 
 fileServer.listen(EXPRESS_PORT, () => {
   console.log(`[main] Songs server listening on http://localhost:${EXPRESS_PORT}/songs`);
@@ -46,7 +44,9 @@ function createWindow() {
   ? 'http://localhost:3001'
   : `http://localhost:${EXPRESS_PORT}`;
   mainWindow.loadURL(frontendURL);
-  mainWindow.webContents.openDevTools();
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
   mainWindow.on('closed', () => (mainWindow = null));
 }
 
